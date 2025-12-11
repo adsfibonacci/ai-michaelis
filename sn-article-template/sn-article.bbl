@@ -1,0 +1,123 @@
+%% BioMed_Central_Bib_Style_v1.01
+
+\begin{thebibliography}{5}
+% BibTex style file: bmc-mathphys.bst (version 2.1), 2014-07-24
+\ifx \bisbn   \undefined \def \bisbn  #1{ISBN #1}\fi
+\ifx \binits  \undefined \def \binits#1{#1}\fi
+\ifx \bauthor  \undefined \def \bauthor#1{#1}\fi
+\ifx \batitle  \undefined \def \batitle#1{#1}\fi
+\ifx \bjtitle  \undefined \def \bjtitle#1{#1}\fi
+\ifx \bvolume  \undefined \def \bvolume#1{\textbf{#1}}\fi
+\ifx \byear  \undefined \def \byear#1{#1}\fi
+\ifx \bissue  \undefined \def \bissue#1{#1}\fi
+\ifx \bfpage  \undefined \def \bfpage#1{#1}\fi
+\ifx \blpage  \undefined \def \blpage #1{#1}\fi
+\ifx \burl  \undefined \def \burl#1{\textsf{#1}}\fi
+\ifx \doiurl  \undefined \def \doiurl#1{\url{https://doi.org/#1}}\fi
+\ifx \betal  \undefined \def \betal{\textit{et al.}}\fi
+\ifx \binstitute  \undefined \def \binstitute#1{#1}\fi
+\ifx \binstitutionaled  \undefined \def \binstitutionaled#1{#1}\fi
+\ifx \bctitle  \undefined \def \bctitle#1{#1}\fi
+\ifx \beditor  \undefined \def \beditor#1{#1}\fi
+\ifx \bpublisher  \undefined \def \bpublisher#1{#1}\fi
+\ifx \bbtitle  \undefined \def \bbtitle#1{#1}\fi
+\ifx \bedition  \undefined \def \bedition#1{#1}\fi
+\ifx \bseriesno  \undefined \def \bseriesno#1{#1}\fi
+\ifx \blocation  \undefined \def \blocation#1{#1}\fi
+\ifx \bsertitle  \undefined \def \bsertitle#1{#1}\fi
+\ifx \bsnm \undefined \def \bsnm#1{#1}\fi
+\ifx \bsuffix \undefined \def \bsuffix#1{#1}\fi
+\ifx \bparticle \undefined \def \bparticle#1{#1}\fi
+\ifx \barticle \undefined \def \barticle#1{#1}\fi
+\bibcommenthead
+\ifx \bconfdate \undefined \def \bconfdate #1{#1}\fi
+\ifx \botherref \undefined \def \botherref #1{#1}\fi
+\ifx \url \undefined \def \url#1{\textsf{#1}}\fi
+\ifx \bchapter \undefined \def \bchapter#1{#1}\fi
+\ifx \bbook \undefined \def \bbook#1{#1}\fi
+\ifx \bcomment \undefined \def \bcomment#1{#1}\fi
+\ifx \oauthor \undefined \def \oauthor#1{#1}\fi
+\ifx \citeauthoryear \undefined \def \citeauthoryear#1{#1}\fi
+\ifx \endbibitem  \undefined \def \endbibitem {}\fi
+\ifx \bconflocation  \undefined \def \bconflocation#1{#1}\fi
+\ifx \arxivurl  \undefined \def \arxivurl#1{\textsf{#1}}\fi
+\csname PreBibitemsHook\endcsname
+
+%%% 1
+\bibitem[\protect\citeauthoryear{Moise and Friedman}{2019}]{ra-pde}
+\begin{barticle}
+\bauthor{\bsnm{Moise}, \binits{N.}},
+\bauthor{\bsnm{Friedman}, \binits{A.}}:
+\batitle{Rheumatoid arthritis - a mathematical model}.
+\bjtitle{Journal of Theoretical Biology}
+\bvolume{461},
+\bfpage{17}--\blpage{33}
+(\byear{2019})
+\doiurl{10.1016/j.jtbi.2018.10.039}
+\end{barticle}
+\endbibitem
+
+%%% 2
+\bibitem[\protect\citeauthoryear{Ding et~al.}{2023}]{ra-background}
+\begin{barticle}
+\bauthor{\bsnm{Ding}, \binits{Q.}},
+\bauthor{\bsnm{Hu}, \binits{W.}},
+\bauthor{\bsnm{Wang}, \binits{R.}},
+\bauthor{\bsnm{Yang}, \binits{Q.}},
+\bauthor{\bsnm{Zhu}, \binits{M.}},
+\bauthor{\bsnm{Li}, \binits{M.}},
+\bauthor{\bsnm{Cai}, \binits{J.}},
+\bauthor{\bsnm{Rose}, \binits{P.}},
+\bauthor{\bsnm{Mao}, \binits{J.}},
+\bauthor{\bsnm{Zhu}, \binits{Y.Z.}}:
+\batitle{Signaling pathways in rheumatoid arthritis: implications for targeted
+  therapy}.
+\bjtitle{Signal Transduction and Targeted Therapy}
+\bvolume{8}(\bissue{1}),
+\bfpage{68}
+(\byear{2023})
+\doiurl{10.1038/s41392-023-01331-9}
+\end{barticle}
+\endbibitem
+
+%%% 3
+\bibitem[\protect\citeauthoryear{Udrescu and Tegmark}{2020}]{aifeynman1}
+\begin{barticle}
+\bauthor{\bsnm{Udrescu}, \binits{S.-M.}},
+\bauthor{\bsnm{Tegmark}, \binits{M.}}:
+\batitle{Ai feynman: A physics-inspired method for symbolic regression}.
+\bjtitle{Science Advances}
+\bvolume{6}(\bissue{16}),
+\bfpage{2631}
+(\byear{2020})
+\end{barticle}
+\endbibitem
+
+%%% 4
+\bibitem[\protect\citeauthoryear{Udrescu et~al.}{2020}]{aifeynman2}
+\begin{botherref}
+\oauthor{\bsnm{Udrescu}, \binits{S.-M.}},
+\oauthor{\bsnm{Tan}, \binits{A.}},
+\oauthor{\bsnm{Feng}, \binits{J.}},
+\oauthor{\bsnm{Neto}, \binits{O.}},
+\oauthor{\bsnm{Wu}, \binits{T.}},
+\oauthor{\bsnm{Tegmark}, \binits{M.}}:
+Ai feynman 2.0: Pareto-optimal symbolic regression exploiting graph modularity.
+arXiv preprint arXiv:2006.10782
+(2020)
+\end{botherref}
+\endbibitem
+
+%%% 5
+\bibitem[\protect\citeauthoryear{Bykerk}{2020}]{gm-csf}
+\begin{barticle}
+\bauthor{\bsnm{Bykerk}, \binits{V.P.}}:
+\batitle{The efficacy and safety of targeting {GM-CSF} in arthritis}.
+\bjtitle{Lancet Rheumatol.}
+\bvolume{2}(\bissue{11}),
+\bfpage{648}--\blpage{650}
+(\byear{2020})
+\end{barticle}
+\endbibitem
+
+\end{thebibliography}

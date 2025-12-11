@@ -1,0 +1,557 @@
+%Version 3.1 December 2024
+% See section 11 of the User Manual for version history
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                 %%
+%% Please do not use \input{...} to include other tex files.       %%
+%% Submit your LaTeX manuscript as one .tex document.              %%
+%%                                                                 %%
+%% All additional figures and files should be attached             %%
+%% separately and not embedded in the \TeX\ document itself.       %%
+%%                                                                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%\documentclass[referee,sn-basic]{sn-jnl}% referee option is meant for double line spacing
+
+%%=======================================================%%
+%% to print line numbers in the margin use lineno option %%
+%%=======================================================%%
+
+%%\documentclass[lineno,pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+
+%%=========================================================================================%%
+%% the documentclass is set to pdflatex as default. You can delete it if not appropriate.  %%
+%%=========================================================================================%%
+
+%%\documentclass[sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+
+%%Note: the following reference styles support Namedate and Numbered referencing. By default the style follows the most common style. To switch between the options you can add or remove “Numbered” in the optional parenthesis. 
+%%The option is available for: sn-basic.bst, sn-chicago.bst%  
+ 
+%%\documentclass[pdflatex,sn-nature]{sn-jnl}% Style for submissions to Nature Portfolio journals
+%%\documentclass[pdflatex,sn-basic]{sn-jnl}% Basic Springer Nature Reference Style/Chemistry Reference Style
+\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}% Math and Physical Sciences Numbered Reference Style
+%%\documentclass[pdflatex,sn-mathphys-ay]{sn-jnl}% Math and Physical Sciences Author Year Reference Style
+%%\documentclass[pdflatex,sn-aps]{sn-jnl}% American Physical Society (APS) Reference Style
+%%\documentclass[pdflatex,sn-vancouver-num]{sn-jnl}% Vancouver Numbered Reference Style
+%%\documentclass[pdflatex,sn-vancouver-ay]{sn-jnl}% Vancouver Author Year Reference Style
+%%\documentclass[pdflatex,sn-apa]{sn-jnl}% APA Reference Style
+%%\documentclass[pdflatex,sn-chicago]{sn-jnl}% Chicago-based Humanities Reference Style
+
+%%%% Standard Packages
+%%<additional latex packages if required can be included here>
+
+\usepackage{graphicx}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+\usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+%%%%
+
+%%%%%=============================================================================%%%%
+%%%%  Remarks: This template is provided to aid authors with the preparation
+%%%%  of original research articles intended for submission to journals published 
+%%%%  by Springer Nature. The guidance has been prepared in partnership with 
+%%%%  production teams to conform to Springer Nature technical requirements. 
+%%%%  Editorial and presentation requirements differ among journal portfolios and 
+%%%%  research disciplines. You may find sections in this template are irrelevant 
+%%%%  to your work and are empowered to omit any such section if allowed by the 
+%%%%  journal you intend to submit to. The submission guidelines and policies 
+%%%%  of the journal take precedence. A detailed User Manual is available in the 
+%%%%  template package for technical guidance.
+%%%%%=============================================================================%%%%
+
+%% as per the requirement new theorem styles can be included as shown below
+\theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}%  meant for continuous numbers
+%%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
+%% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
+\newtheorem{proposition}[theorem]{Proposition}% 
+%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
+
+\theoremstyle{thmstyletwo}%
+\newtheorem{example}{Example}%
+\newtheorem{remark}{Remark}%
+
+\theoremstyle{thmstylethree}%
+\newtheorem{definition}{Definition}%
+
+\raggedbottom
+%%\unnumbered% uncomment this for unnumbered level heads
+
+\begin{document}
+
+\title[Article Title]{AI Michaelis and Rheumatoid Arthritis}
+
+%%=============================================================%%
+%% GivenName	-> \fnm{Joergen W.}
+%% Particle	-> \spfx{van der} -> surname prefix
+%% FamilyName	-> \sur{Ploeg}
+%% Suffix	-> \sfx{IV}
+%% \author*[1,2]{\fnm{Joergen W.} \spfx{van der} \sur{Ploeg} 
+%%  \sfx{IV}}\email{iauthor@gmail.com}
+%%=============================================================%%
+
+\author{\fnm{Alexander} \sur{Speigle}}\email{speigad@umich.edu}
+\affil{\orgdiv{Biomedical Engineering}, \orgname{University of Michigan}}
+
+\keywords{Physics Inspired Neural Network, Symbolic Regression, Rheumatoid Arthritis, Computational Modeling}
+
+\maketitle
+
+\section{Background}\label{sec1}
+
+Rheumatoid arthritis (RA) is an autoimmune disease that affects the synovial tissue in the joints and causes long term swelling and discomfort. It is typically divided into three stages: initiation, amplification, and chronic inflammation. The initiation phase is the earliest onset when antigen presenting B cells start to be recognized by T cells. Treatments in this phase are the most effective. The amplification stage is when the activated T cells begin to secret inflammatory cytokines that signal macrophages to start degrading synovial tissue and cartilage surrounding the bone. The joints then become painful and inflamed, and over long periods of time degredation of the bones can be observed. Medical treatment starts to plateau around this phase, but efficacy is still seen. The final phase is the chronic stage where treatment shifts from prevention and regulation to pain management. This study focuses on twelve combined average concentrations of T cells, macrophages, and cytokines in the synovial membrane \cite{ra-pde, ra-background}.
+
+Drugs have been designed to increase or decrease the influences outlined in Figure \ref{fig:1}. Tocilizumab blocks the effect of IL-6, which is one of the required signals for the differentiation of CD$4^+$ T cells ($T_0$) into Th-17 cells and methotrexate increases the death rate of macrophages, which are the leading cause of synovial membrane degradation. The downstream effects of higher apoptosis rates of macrophages causes a decrease in TNF-$\alpha$, an inflammatory molecule. Patients sometimes don't respond to methotrexate and health care providers switch to using synthetic DMARDs, which are less potent on their own but synergistically work in combination therapy. It would be very beneficial to know which components of the immune network would have the most impact on macrophage and monocyte wear since those would be potential drug targets. 
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{pde-network.jpg}
+  \caption{This is the signalling network of the cells and cytokines involved. Image obtained from a model describing a system of PDE's over cartilage, synovial tissue, and synovial fluid. Abbreviations for simplicity in equations are as follows. Th-17 ($T$), IL-17 ($I_{17}$), TNF-$\alpha$ ($T_\alpha$), IL-6 ($I_6$), IL-23 ($I_{23}$), GM-CSF ($S$), Fibroblasts ($F$), Macrophage ($M$), MCP-1 ($P$), FGF ($G$), IMP ($Q_r$), MMP ($Q$) \cite{ra-pde}. }
+  \label{fig:1}
+\end{figure}
+
+\section{Objective}\label{sec2}
+Previously derived ODE systems to model RA have second, third, or even fourth degree terms and can get increasingly complex with new populations and PDE models require signficant computational resources to simulate. This initially was a project about analyzing the impact of specific drugs on the system with quantifiable data but resolving the missing and incomplete data proved to be nontrivial, and I pivoted to reducing complexity of a PDE model. While symbolic regression has worked with PDE's in the past, it was significantly less interpretable, which was the goal of using symbolic regression to begin with. In spirit of the usage of AI-Feynman to derive planetary motion, AI-Michaelis is intended to provide a standardized method to derive nonlinear systems of equations for biological and omics datasets \cite{aifeynman1, aifeynman2}. The goal of this project is to simplify a PDE model in the synovial membrane to an ODE model solely from data, and then highlight significant interactions (and potential drug targets) from the resulting outputs. Additionally, this is something I will continue developing since it proved to be useful to highlight drug targets in disease and I have the basic framework working now. 
+
+\section{Results}\label{sec3}
+The resulting model was best fit by first order terms (no interactions). This means the twelve dimensional state vector $\mathbf x$ will contain each species concentration. An important note is due to the extremely small values of concentration for some species, on the order of $10^{-8}$ in some cases, the model had to be fit with scaled parameters to avoid machine epsilon errors. The code solved for the scaled system, which can easily be readjusted to realistic concentrations. Mathematically, this is represented as a new vector $\mathbf y$ where $y_i = c_i^{-1} \cdot x_i$ in the following scheme. The data was fit to find solutions of $\mathbf y$, so $\mathbf x$ can be derived trivially. Below, $\mathbf d$ was a parameter obtained from fitting the scaled data and $\mathbf c$ is from the original data. The matrix $A = [a_{ij}]$ is a $12 \times 12$ interaction matrix that represents each species interaction with all others. The adjaceny flow matrix of the predicted model can be seen in Appendix \ref{secA2} and is similar to the original network in \ref{fig:1}.
+\[\frac{d\mathbf{x}}{dt} = A\,\mathbf{x} + \mathbf{b} \qquad \frac{d\mathbf{y}}{dt} = A\,\mathbf{y} + \mathbf{d}\]
+\[
+\mathbf{x} =
+\begin{bmatrix}
+T_{17} \\ M \\ T \\ I_{17} \\ I_{23} \\ T_\alpha \\ I_6 \\ S \\ G \\ P \\ Q \\ Q_r
+\end{bmatrix} \quad
+\mathbf{d} =
+\begin{bmatrix}
+-0.004 \\ -0.020 \\ 0.093 \\ 0.172 \\ -0.015 \\ 0.000 \\ 0.073 \\ 0.065 \\ -0.004 \\ -0.001 \\ 0.191 \\ -0.015
+\end{bmatrix} \quad 
+\mathbf{c} =
+\begin{bmatrix}
+0.001 \\ 0.1 \\ 0.01 \\ 10^{-12} \\ 10^{-8} \\ 10^{-11} \\ 10^{-9} \\ 10^{-12} \\ 10^{-11} \\ 10^{-9} \\ 10^{-5} \\ 10^{-6}
+\end{bmatrix}
+\]
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{true_vs_pred_linear.png}
+  \caption{The left is the fitted model of all twelve species in the cell network over the time period. The general shapes of all species closely matches the shape of the raw data onthe right. It is important to realize this is the fitted model of $\mathbf y$, where each species in reality is scaled down to the appropriate dimension. }
+  \label{linear}
+\end{figure}
+
+
+
+This this system fits quite well, assuming the scaling does not smooth out any significant time points. The losses between the true values and the predicted function at all evaluated time points differs minimally. Since this system was best approximated by a linear model, a natural followup is to determine eigencentrality of the network. The ordering is decreasing significance in Table \ref{tab:species-metrics-centrality}. See Appendix \ref{secA3} for a quadratically fitted model that gets increasingly complicated. 
+
+\begin{table}[h!]
+\centering
+\label{tab:species-metrics-centrality}
+\begin{tabular}{lcccc}
+\toprule
+Species & MSE & MAE & $R^2$ & Eigencentrality \\
+\midrule
+$I_6$   & 0.003542 & 0.045239 & 0.961994 & 0.3340 \\
+$S$    & 0.004050 & 0.049314 & 0.983894 & 0.3340 \\
+$P$    & 0.000100 & 0.007823 & 0.989106 & 0.3340 \\
+$T$    & 0.004237 & 0.052133 & 0.956945 & 0.3089 \\
+$Q$    & 0.014317 & 0.089913 & 0.964256 & 0.3062 \\
+$I_{23}$  & 0.000895 & 0.021501 & 0.972839 & 0.3013 \\
+$I_{17}$  & 0.009393 & 0.080827 & 0.977718 & 0.2888 \\
+$M$    & 0.001306 & 0.027527 & 0.986389 & 0.2839 \\
+$Q_r$   & 0.000663 & 0.018909 & 0.983128 & 0.2839 \\
+$T_{17}$  & 0.000521 & 0.016059 & 0.988683 & 0.2564 \\
+$T_\alpha$   & 0.000372 & 0.014424 & 0.982216 & 0.2081 \\
+$G$    & 0.000354 & 0.013536 & 0.977209 & 0.1782 \\
+\bottomrule
+\end{tabular}
+\caption{Species metrics and network centrality. Includes model performance (MSE, MAE, $R^2$) and eigencentrality in the signaling network, sorted by decreasing eigencentrality.}
+\end{table}
+
+\section{Discussion}
+Assuming the linear model derived above, the higher eigencentral species are potential drug targets. Tocilizumab is already used to inhibit differentiation of CD$4^+$ T cells, which verifies the ranking in the predicted model \cite{ra-pde}. According to the predicted centrality, GM-CSF and MCP-1 are also potential targets. Mechanisms to inhibit the efficacy of GM-CSF are experimental at the moment but the work being performed relies on monoclonal antibody treatments. Treatments approved for human trials include mavrilimumab, otilimab, namilumab, and lenzilumab. These all attract portions of the GM-CSF and bind them to the antibody, preventing them from stimulating and activating macrophages and reducing the TNF-$\alpha$ inflammation \cite{gm-csf}.
+
+In contrast to studies proving inhibition of GM-CSF and IL-6, MCP-1 has been strongly associated with many inflammation models, but the predicted centrality in this model is difficult to prove as it does not incorporate the nonlinear terms. Inflammation models in mice presenting arthritis similar to human RA have demonstrated antagonists of the MCP-1 inhibit its ability to induce monocyte migration into inflammed areas. This highlights MCP-1 as a promising drug target, but research into this inhibitor is still early in its development. Due to the drastic increase in complexity of the quadratic case the linear eigencentrality is a strong indicator of several new drug targets.
+
+Another context for drug design is to determine controllability of the system. If there are any steady states or cycles it would be useful to determine how they change when adding new parameters and drugs, since there are instances of turning an unsteady steady state into a steady one with the addition of a variable. However, this will be very difficult considering the second degree model in Appendix \ref{secA3} spans multiple pages and attains a worse loss value. The nonlinear modeling aspect of this project did not work as well as it did when deriving Feynman's equations, which I suspect was due to some data being too dense and the built in functions smoothing the discrete derivatives too much. In order for this to output plausible nonlinear results, the method of generating the ODE systems will need to be refined to admire simplicity over complexity. 
+
+\section{Methods}
+The code can be found on \href{https://github.com/adsfibonacci/ai-michaelis}{my page}. Initially, this project started using PySR and PySINDy, then AI-Feynman, before ultimately settling on DeepTime. Due to some of the contraints on the software, I adjusted the first and last time points to perfectly match with $t=0$ and $t=100$ days. The change was very small, less than $10^{-3}$ days. This helped to define a common time refinement for all species, since all data was slightly different time points. I then did a grid sweep on the optimizer threshold and the degree of fit. The threshold was important because it determined which parameters in the matrix $A$ were set to 0 and which were considered significant. Since the data was extremely small in some cases, it required tuning in order to not overfit. The degree was significant since the search space of possible equations would grow exponentially with more polynomial degrees as the interaction terms would grow. To test ensure each equation was chosen properly, a time series 5 fold cross validation scheme was used to avoid overfitting.
+
+After realizing the predicted model was a linear model, I ran the \texttt{eigen.py} function in Table \ref{secA1} which sorted the important species in this network. A full list of required \texttt{pip} packages I installed are
+\texttt{numpy}, \texttt{pandas}, \texttt{pysr}, \texttt{pysindy}, \texttt{networkx}, \texttt{deeptime}, \texttt{matplotlib}, \texttt{scipy}, and \texttt{scikit-learn}. All material on the github link should work with minimal edits. The data is from Moise's paper titled \textit{Rheumatoid arthritis - a mathematical model}, and should be under the \texttt{data/pde} folder. 
+
+\bibliography{sn-bibliography}% common bib file
+\newpage
+\begin{appendices}
+
+  \section{Interaction Matrix}\label{secA1}
+
+  \begin{table}[h!]
+    \centering
+    \caption{Linear interaction coefficients $a_{ij}$ in the SINDy-identified system.}
+    \label{tab:interaction-matrix}
+    \scriptsize
+    \begin{tabular}{lrrrrrrrrrrrr}
+      \toprule
+      Variable & T17 & M & T & I17 & I23 & Ta & I6 & S & G & P & Q & Qr \\
+      \midrule
+      $T17'$ & -0.008 & -0.003 & -0.000 & -0.005 & -0.001 & -0.001 & 0.009 & -0.006 & -0.001 & -0.002 & 0.012 & -0.002 \\
+      $M'$   & -0.001 & 0.007 & -0.013 & -0.000 & 0.006 & 0.000 & 0.011 & 0.010 & 0.001 & -0.001 & 0.000 & 0.003 \\
+      $T'$   & -0.004 & -0.016 & -0.011 & 0.024 & -0.012 & -0.004 & -0.015 & -0.114 & -0.006 & -0.002 & 0.090 & -0.009 \\
+      $I17'$ & 0.107  & -0.010 & -0.040 & -0.007 & -0.011 & 0.004 & -0.086 & -0.102 & 0.000 & 0.006 & 0.115 & -0.002 \\
+      $I23'$ & -0.000 & 0.001 & -0.009 & -0.005 & 0.003 & 0.001 & 0.012 & 0.009 & 0.000 & -0.002 & 0.003 & 0.002 \\
+      $Ta'$  & -0.000 & 0.002 & -0.005 & 0.001 & 0.001 & 0.000 & 0.004 & -0.006 & 0.000 & -0.001 & 0.008 & 0.001 \\
+      $I6'$  & 0.050 & 0.011 & -0.017 & -0.012 & 0.004 & 0.008 & -0.036 & -0.043 & 0.006 & 0.007 & 0.046 & 0.011 \\
+      $S'$   & -0.007 & -0.010 & -0.011 & 0.013 & -0.011 & -0.002 & -0.004 & -0.086 & -0.004 & -0.002 & 0.075 & -0.009 \\
+      $G'$   & -0.001 & 0.000 & -0.005 & -0.000 & 0.002 & -0.000 & 0.006 & -0.003 & -0.000 & -0.001 & 0.006 & 0.000 \\
+      $P'$   & -0.002 & 0.000 & -0.003 & 0.003 & 0.000 & -0.000 & 0.002 & -0.005 & -0.000 & -0.001 & 0.005 & -0.000 \\
+      $Q'$   & 0.134 & 0.053 & -0.018 & -0.044 & 0.029 & 0.032 & -0.105 & -0.083 & 0.028 & 0.025 & 0.069 & 0.042 \\
+      $Qr'$  & -0.000 & 0.003 & -0.010 & -0.003 & 0.003 & 0.000 & 0.007 & 0.010 & 0.000 & -0.001 & 0.001 & 0.002 \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \newpage
+  \section{Predicted Flow}\label{secA2}
+  \begin{figure}[h!]
+    \centering
+    \title{Predicted Flow Adjacency network}
+    \includegraphics[width=.6\linewidth]{adjacency_matrix.png}
+    \caption{This is the adjacency matrix of the predicted linear model. It closely resembles the original transcription network in Figure \ref{fig:1} but has extraneous and weak flows between two species. }
+  \end{figure}
+  \section{Quadratic Fitting}\label{secA3}
+  
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=\linewidth]{true_vs_pred_quad.png}
+    \caption{The left is the predicted model and the right is the scaled data. Note both graphs have scaled data due to machine epsilon errors as in Figure \ref{linear}}
+    \label{quadratic}
+  \end{figure}
+
+\begin{align}
+T_{17}' &= 0.001 T + 0.001 I_{17} - P + T_{17}^2 + T_{17} I_{17} + T_{17} I_{23} + T_{17} I_6 - T_{17} P + T_{17} Q + M^2 - M T - 2 M I_{17} \nonumber\\
+&\quad + M I_{23} + M I_6 - M S + M Q_r + T^2 + T I_{17} + T I_{23} - T T_\alpha - 4 T P - T Q_r \nonumber\\
+&\quad + I_{17} I_{23} - I_{17} T_\alpha - 5 I_{17} P - 2 I_{17} Q - I_{17} Q_r + I_{23}^2 + I_{23} T_\alpha + 2 I_{23} I_6 + I_{23} S + I_{23} G \nonumber\\
+&\quad + 3 I_{23} Q + I_{23} Q_r + T_\alpha I_6 - T_\alpha P + 2 I_6^2 + I_6 G - 2 I_6 P + 2 I_6 Q + I_6 Q_r - S^2 + S G - 4 S P \nonumber\\
+&\quad - S Q - S Q_r - G P + G Q - P^2 - 5 P Q - P Q_r + Q^2 + Q Q_r
+\end{align}
+
+\begin{align}
+M' &= -1 - T_{17} - M - 2 T - 2 I_{17} - T_\alpha - I_6 - 2 S - 3 Q - Q_r + T_{17}^2 + T_{17} T + T_{17} I_{17} + T_{17} I_{23} + T_{17} S \nonumber\\
+&\quad + T_{17} G + T_{17} Q + M T + M I_{23} + T^2 + T I_{17} + 3 T I_{23} + T G - T P - T Q - T Q_r + 2 I_{17} I_{23} - I_{17} T_\alpha \nonumber\\
+&\quad + I_{17} G - I_{17} P + I_{23}^2 + I_{23} I_6 + 2 I_{23} S + I_{23} G + 3 I_{23} Q - T_\alpha^2 - T_\alpha I_6 - T_\alpha S - I_6 P - S^2 + S G \nonumber\\
+&\quad - S P - S Q - S Q_r + G Q - P Q + Q^2 - Q Q_r
+\end{align}
+
+\begin{align}
+T' &= 0.004 
+    + 0.006\,T_{17} 
+    + 0.004\,M 
+    + 0.011\,T 
+    + 0.016\,I_{17} 
+    + 0.002\,I_{23} 
+    + 0.002\,T_\alpha 
+    + 0.008\,I_6 \nonumber\\
+&\quad + 0.011\,S 
+    + 0.001\,G 
+    + 0.001\,P 
+    + 0.020\,Q 
+    + 0.002\,Q_r 
+    + 0.005\,T_{17}^2 
+    + 0.008\,T_{17}T \nonumber\\
+&\quad + 0.010\,T_{17}I_{17} 
+    + 0.006\,T_{17}I_6 
+    + 0.007\,T_{17}S 
+    + 0.010\,T_{17}Q 
+    - 0.001\,M^2 
+    - 0.003\,M T \nonumber\\
+&\quad + 0.001\,M I_{17} 
+    - 0.001\,M I_{23} 
+    + 0.002\,M I_6 
+    - 0.003\,M S 
+    - 0.003\,M G 
+    - 0.002\,M P \nonumber\\
+&\quad - 0.002\,M Q_r 
+    - 0.013\,T^2 
+    - 0.002\,T I_{17} 
+    - 0.001\,T I_{23} 
+    - 0.004\,T T_\alpha 
+    + 0.004\,T I_6 \nonumber\\
+&\quad - 0.006\,T S 
+    - 0.009\,T G 
+    - 0.005\,T P 
+    + 0.005\,T Q 
+    - 0.005\,T Q_r 
+    - 0.004\,I_{17}^2 \nonumber\\
+&\quad + 0.003\,I_{17}I_6 
+    - 0.007\,I_{17}G 
+    - 0.004\,I_{17}P 
+    - 0.004\,I_{17}Q_r 
+    - 0.001\,I_{23}^2 
+    + 0.001\,I_{23}I_6 \nonumber\\
+&\quad - 0.002\,I_{23}G 
+    - 0.001\,I_{23}P 
+    - 0.001\,I_{23}Q_r 
+    - 0.003\,T_\alpha^2 
+    - 0.003\,T_\alpha I_6 
+    - 0.002\,T_\alpha Q \nonumber\\
+&\quad - 0.002\,T_\alpha Q_r 
+    + 0.003\,I_6^2 
+    + 0.003\,I_6 S 
+    - 0.002\,I_6 G 
+    + 0.005\,I_6 Q 
+    - 0.001\,I_6 Q_r \nonumber\\
+&\quad - 0.002\,S^2 
+    - 0.008\,S G 
+    - 0.005\,S P 
+    - 0.001\,S Q 
+    - 0.006\,S Q_r 
+    - 0.003\,G^2 \nonumber\\
+&\quad - 0.002\,G P 
+    - 0.008\,G Q 
+    - 0.003\,G Q_r 
+    - 0.001\,P^2 
+    - 0.004\,P Q 
+    - 0.002\,P Q_r \nonumber\\
+&\quad + 0.009\,Q^2 
+    - 0.004\,Q Q_r 
+    - 0.002\,Q_r^2
+\end{align}
+
+\begin{align}
+I_{17}' &= 0.006
+    + 0.014\,T_{17}
+    + 0.007\,M
+    + 0.012\,T
+    + 0.024\,I_{17}
+    + 0.002\,I_{23}
+    + 0.003\,T_\alpha
+    + 0.013\,I_6 \nonumber\\
+&\quad + 0.018\,S
+    + 0.002\,P
+    + 0.048\,Q
+    + 0.004\,Q_r
+    + 0.019\,T_{17}^2
+    + 0.036\,T_{17}T
+    + 0.039\,T_{17}I_{17} \nonumber\\
+&\quad + 0.017\,T_{17}I_6
+    + 0.030\,T_{17}S
+    + 0.044\,T_{17}Q
+    - 0.011\,M T
+    - 0.040\,T^2
+    - 0.016\,T I_{17}
+    - 0.018\,T I_{23} \nonumber\\
+&\quad - 0.012\,T T_\alpha
+    - 0.020\,T G
+    + 0.026\,T Q
+    - 0.015\,I_{17}^2
+    - 0.014\,I_{17}I_{23}
+    - 0.016\,I_{17}Q
+    - 0.005\,I_{23}I_6 \nonumber\\
+&\quad - 0.016\,I_{23}Q
+    - 0.007\,T_\alpha S
+    - 0.005\,T_\alpha G
+    + 0.001\,T_\alpha Q
+    - 0.002\,I_6^2
+    - 0.006\,I_{17}G
+    + 0.003\,I_{17}P \nonumber\\
+&\quad - 0.010\,I_{17}Q
+    + 0.004\,M Q
+    - 0.009\,M S
+    - 0.007\,M G
+    - 0.002\,M P
+\end{align}
+
+\begin{align}
+I_{23}' &= -M - P - Q
+    + T_{17}^2
+    + T_{17}T
+    + T_{17}I_{17}
+    + T_{17}I_{23}
+    + T_{17}I_6
+    + T_{17}S
+    + T_{17}G \nonumber\\
+&\quad - T_{17}P
+    + T_{17}Q
+    + T_{17}Q_r
+    - M^2
+    - 5 M T
+    - 6 M I_{17}
+    + 2 M I_{23}
+    - 4 M S
+    - 2 M P \nonumber\\
+&\quad + T^2
+    + T I_{17}
+    + T I_{23}
+    + 2 T T_\alpha
+    - 4 T P
+    - 3 T Q
+    + 2 I_{17}I_{23}
+    + 2 I_{17}T_\alpha
+    + 2 I_{17}G \nonumber\\
+&\quad - 6 I_{17}P
+    + 2 I_{23}^2
+    + 2 I_{23}T_\alpha
+    + 2 I_{23}I_6
+    + 2 I_{23}S
+    + I_{23}G
+    + 4 I_{23}Q
+    + 2 I_{23}Q_r \nonumber\\
+&\quad + T_\alpha I_6
+    + 2 T_\alpha S
+    + 2 I_6^2
+    + I_6 S
+    + 2 I_6 G
+    - 2 I_6 P
+    + 3 I_6 Q
+    + 2 I_6 Q_r \nonumber\\
+&\quad - 2 S P
+    + 2 S G
+    + I^2
+    + G Q
+    + \dots
+\end{align}
+
+
+% Remaining equations (T_\alpha', I_6', S', G', P', Q', Q_r') would follow the same pattern.
+\begin{align}
+T_\alpha' &= T_{17}^2 + T_{17} M + 2 T_{17} T + 2 T_{17} I_{17} + T_{17} I_6 + T_{17} S + T_{17} G + 2 T_{17} Q + M^2 + M T + M I_6 + M G + M Q \nonumber\\
+&\quad - T^2 + T I_{17} - T I_{23} - T S + T G - 2 T P - T Q_r + I_6^2 + I_6 G - I_6 P + I_6 Q - S^2 + S G - 2 S P \nonumber\\
+&\quad - S Q + G Q + Q^2 - Q Q_r
+\end{align}
+
+\begin{align}
+I_6' &= 0.002 + 0.005 T_{17} + 0.002 M + 0.003 T + 0.007 I_{17} + 0.001 T_\alpha + 0.004 I_6 + 0.005 S + 0.017 Q + 0.002 Q_r \nonumber\\
+&\quad + 0.010 T_{17}^2 + 0.016 T_{17} T + 0.019 T_{17} I_{17} + 0.008 T_{17} I_6 + 0.014 T_{17} S + 0.021 T_{17} Q - 0.005 T^2 - 0.007 T I_{17} \nonumber\\
+&\quad - 0.009 T I_{23} - 0.004 T T_\alpha + 0.013 T Q - 0.005 I_{17}^2 - 0.007 I_{17} I_{23} - 0.010 I_{17} Q + 0.002 S P + 0.003 S Q \nonumber\\
+&\quad + 0.011 Q^2 + 0.002 Q Q_r
+\end{align}
+
+\begin{align}
+S' &= 0.003 + 0.005 T_{17} + 0.004 M + 0.007 T + 0.010 I_{17} + 0.001 I_{23} + 0.006 I_6 + 0.008 S + 0.015 Q \nonumber\\
+&\quad + 0.004 T_{17}^2 + 0.007 T_{17} T + 0.008 T_{17} I_{17} + 0.005 T_{17} I_6 + 0.006 T_{17} S + 0.009 T_{17} Q - 0.013 T^2 - 0.004 T I_{17} \nonumber\\
+&\quad - 0.005 T I_{23} + 0.005 T I_6 - 0.005 T S + 0.005 T Q - 0.006 T Q_r - 0.001 I_{17}^2 - 0.006 I_{17} I_{23} + 0.004 I_{17} I_6 \nonumber\\
+&\quad - 0.007 I_{17} Q_r - 0.003 I_{23}^2 - 0.006 I_{23} S - 0.007 I_{23} Q + 0.005 I_6^2 + 0.004 I_6 S + 0.006 I_6 Q - 0.003 S^2 \nonumber\\
+&\quad - 0.007 S Q_r + 0.002 G Q + 0.006 Q^2 - 0.007 Q Q_r
+\end{align}
+
+\begin{align}
+G' &= T_{17}^2 + 0.002 T_{17} T + 0.002 T_{17} I_{17} + 0.001 T_{17} I_{23} + 0.001 T_{17} I_6 + 0.001 T_{17} S + 0.002 T_{17} Q \nonumber\\
+&\quad - 0.001 M T - 0.003 M I_{17} + 0.001 M I_{23} - 0.002 M S + 0.001 T^2 + 0.002 T I_{17} + 0.002 T I_{23} + 0.001 T G \nonumber\\
+&\quad - 0.003 T P - 0.002 T Q + 0.002 I_{17} I_{23} - 0.001 I_{17} T_\alpha - 0.004 I_{17} P + 0.002 I_{23} I_6 + 0.004 I_{23} Q + I_6^2 \nonumber\\
+&\quad - 0.001 I_6 P - 0.002 S^2 - 0.003 S P + 0.001 G^2 + 0.002 G Q + Q^2 - 0.003 P Q
+\end{align}
+
+
+\begin{align}
+P' &= -1 - S - Q + T^2 + T I_{17} + T I_{23} + T T_\alpha + T G + I_{17} I_{23} + I_{17} T_\alpha + I_{17} G \nonumber\\
+&\quad + I_{17} P + I_{17} Q + I_{23} S + I_{23} Q + T_\alpha I_6 + T_\alpha S + T_\alpha Q + Q^2 - Q Q_r
+\end{align}
+
+
+\begin{align}
+Q' &= 0.006
+    + 0.012 T_{17}
+    + 0.006 M
+    + 0.014 T
+    + 0.017 I_{17}
+    + 0.003 I_{23}
+    + 0.004 T_\alpha
+    + 0.007 I_6
+     + 0.017 S \nonumber\\
+  &\quad 
+    + 0.003 G
+    + 0.002 P
+    + 0.038 Q
+    + 0.004 Q_r \nonumber\\
+&\quad + 0.021 T_{17}^2
+    + 0.031 T_{17} T
+    + 0.038 T_{17} I_{17} \nonumber\\
+&\quad + 0.004 T_{17} I_{23}
+    + 0.007 T_{17} T_\alpha
+    + 0.015 T_{17} I_6 \nonumber\\
+&\quad + 0.029 T_{17} S
+    + 0.042 T_{17} Q \nonumber\\
+&\quad - 0.005 M^2
+    - 0.008 M T
+    - 0.016 M I_{17} \nonumber\\
+&\quad - 0.001 M I_{23}
+    - 0.012 M S
+    - 0.003 M G \nonumber\\
+&\quad - 0.004 M P
+    - 0.003 M Q_r \nonumber\\
+&\quad - 0.029 T^2
+    - 0.016 T I_{17} \nonumber\\
+&\quad - 0.004 T I_{23}
+    - 0.013 T I_6
+    - 0.010 T S \nonumber\\
+&\quad - 0.004 T G
+    - 0.008 T P
+    + 0.024 T Q
+    - 0.006 T Q_r \nonumber\\
+&\quad - 0.005 I_{17}^2
+    - 0.006 I_{17} I_{23} \nonumber\\
+&\quad - 0.013 I_{17} I_6
+    - 0.006 I_{17} G
+    - 0.010 I_{17} P \nonumber\\
+&\quad - 0.025 I_{17} Q
+    - 0.010 I_{17} Q_r \nonumber\\
+&\quad + 0.001 I_{23}^2
+    + 0.003 I_{23} I_6 \nonumber\\
+&\quad - 0.004 I_{23} S
+    + 0.002 I_{23} Q \nonumber\\
+&\quad + 0.001 T_\alpha^2
+    + 0.003 T_\alpha I_6
+    + 0.009 T_\alpha Q \nonumber\\
+&\quad - 0.005 I_6 S
+    - 0.003 I_6 P
+    - 0.003 I_6 Q
+    + 0.002 I_6 Q_r \nonumber\\
+&\quad - 0.004 S^2
+    - 0.004 S G
+    - 0.008 S P \nonumber\\
+&\quad + 0.008 S Q
+    - 0.008 S Q_r \nonumber\\
+&\quad - 0.001 G^2
+    - 0.002 G P
+    + 0.002 G Q
+    - 0.002 G Q_r \nonumber\\
+&\quad - 0.002 P^2
+    - 0.003 P Q
+    - 0.003 P Q_r \nonumber\\
+&\quad + 0.023 Q^2
+\end{align}
+
+
+
+\begin{align}
+Q_r' &= -1 - M - T - I_{17} - I_6 - S - 2 Q - Q_r + T_{17}^2 + T_{17} T_\alpha + T_{17} G + M^2 - M T - 2 M I_{17} \nonumber\\
+&\quad + M I_{23} + M T_\alpha + M I_6 - M S + M G + M Q + M Q_r + 0.002 T I_{17} - T I_{23} - 0.002 T I_6 \nonumber\\
+&\quad + I_{17} T_\alpha - I_{17} I_6 + 2 I_{17} G - 2 I_{17} P - 2 I_{17} Q_r + I_{23}^2 + I_{23} T_\alpha + I_{23} I_6 + I_{23} G + I_{23} Q + I_{23} Q_r \nonumber\\
+&\quad + T_\alpha I_6 + T_\alpha S + T_\alpha G + 2 T_\alpha Q + 2 T_\alpha Q_r - I_6 S + I_6 G - I_6 P + I_6 Q_r \nonumber\\
+&\quad + 2 S G + G^2 + 3 G Q + G Q_r - P^2 - 2 P Q + Q^2 + Q Q_r
+\end{align}
+
+\end{appendices}
+
+%%===========================================================================================%%
+%% If you are submitting to one of the Nature Portfolio journals, using the eJP submission   %%
+%% system, please include the references within the manuscript file itself. You may do this  %%
+%% by copying the reference list from your .bbl file, paste it into the main manuscript .tex %%
+%% file, and delete the associated \verb+\bibliography+ commands.                            %%
+%%===========================================================================================%%
+
+
+%% if required, the content of .bbl file can be included here once bbl is generated
+%%\input sn-article.bbl
+
+\end{document}
