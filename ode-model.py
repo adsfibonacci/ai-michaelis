@@ -2,11 +2,16 @@ import numpy as np
 import pandas as pd
 import pysindy as ps
 
+from deeptime.sindy import SINDy as SI
+from deeptime.sindy import STLSQ
+
 from scipy.integrate import solve_ivp
 from scipy.interpolate import interp1d, UnivariateSpline
 
 from sklearn.model_selection import GridSearchCV, TimeSeriesSplit
 from sklearn.base import BaseEstimator
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 from matplotlib import pyplot as plt
 
@@ -69,40 +74,86 @@ t_qr, qr = read_file('qr.csv')
 t_qr[-1] = 100
 
 tspan = (0, 100)
+t_global = np.linspace(*tspan, 100)
 
 t_data = [t_t17, t_m, t_f, t_i17, t_i23, t_ta, t_i6, t_s, t_g, t_p, t_q, t_qr ]
 x_data = [t17, m, f, i17, i23, ta, i6, s, g, p, q, qr]
 x_scale = [t17_scale, m_scale, f_scale, i17_scale, i23_scale, ta_scale, i6_scale, s_scale, g_scale, p_scale, q_scale, qr_scale]
-x_names = ['t17', 'm', 't', 'i17', 'i23', 'ta', 'i6', 's', 'g', 'p', 'q', 'qr']
+x_names = ['T17', 'M', 'T', 'I17', 'I23', 'Ta', 'I6', 'S', 'G', 'P', 'Q', 'Qr']
 
-t_global = np.linspace(*tspan, 100)
 X = np.array([ interp1d(t_data[i], x_data[i], kind=1)(t_global) for i in range(12) ]).T # rows are the cell types
 dt = t_global[1] - t_global[0]
 
-diff_method = ps.FiniteDifference(order=2, drop_endpoints=True) # ps.SmoothedFiniteDifference(smoother_kws={'window_length':10, 'polyorder':3 })
-feat_lib = ps.PolynomialLibrary(degree=2)
-optimizer = ps.STLSQ(threshold=0.005)
-model = ps.SINDy(
-    differentiation_method=diff_method,
-    feature_library=feat_lib,
-    optimizer=optimizer
-    )
-model.fit(X, t=dt)
-model.print()
-print(model.predict(X[0].reshape(1, -1)))
-print(X[0])
 
-def rhs(t, z):
-    return model.predict(z.reshape(1, -1))[0]
-t = np.linspace(*tspan, 200)
-sol = solve_ivp(rhs, tspan, X[0], t_eval=t)
-
-print(sol.t[:10])
-
-fig, (ax1, ax2) = plt.subplots(1, 2)
-for i in range(12):
-    ax1.plot(sol.t, sol.y[i])
-    ax2.plot(t_global, X[:, i])
+class SINDyCV(SI):
+    def fit(self, X, y=None, **kwargs):
+        # fit normally
+        return super().fit(X, t=kwargs.get("t", None))
+    
+    def score(self, X, y=None):
+        # simulate the model from initial condition
+        sim = self.fetch_model().simulate(X[0], t=np.linspace(0, dt*(len(X)-1), len(X)))
+        # use r2_score over all variables
+        return r2_score(X, sim)
     pass
+
+feat_lib = PolynomialFeatures(degree=1)
+optimizer = STLSQ(threshold=0.00001)
+
+model = SINDyCV(
+    library=feat_lib,
+    optimizer=optimizer,
+    input_features=x_names
+    )
+
+param_grid = {
+    "optimizer__threshold": [1, 0.1, 0.01, 0.001, 0.0001, 0.00001, 1e-6],
+    "library__degree": [0, 2, 3, 4],
+}
+search = GridSearchCV(model, param_grid, cv=TimeSeriesSplit(n_splits=5))
+
+search.fit(X)
+print(search.best_params_)
+
+best = search.best_estimator_
+func = best.fetch_model()
+func.print()
+sim = func.simulate(X[0], t=t_global)
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16,6))
+for i in range(12):
+    ax1.plot(t_global, sim[:, i], label=x_names[i])
+    ax2.plot(t_global, X[:, i], label=x_names[i])
+    pass
+ax1.set_title("Regressed Model Simulation")
+ax2.set_title("Interpolated Raw Data")
+fig.suptitle("Scaled Concentrations vs Time in Days (Quadratic Model)") # Could be linear model
+fig.supylabel("Scaled Concentrations (g/cm^3)")
+fig.supxlabel("Time in Days")
+fig.legend()
+plt.savefig('true_vs_pred_quad.png') # could be linear.png
 plt.show()
 print(x_scale)
+
+print("\n=== Loss Between Model Simulation and Raw Data ===\n")
+losses = {}
+
+for i, name in enumerate(x_names):
+    y_true = X[:, i]        # shape (100,)
+    y_pred = sim[:, i]      # shape (100,)
+
+    mse = mean_squared_error(y_true, y_pred)
+    mae = mean_absolute_error(y_true, y_pred)
+    r2  = r2_score(y_true, y_pred)
+
+    losses[name] = dict(mse=mse, mae=mae, r2=r2)
+
+    print(f"{name}:")
+    print(f"    MSE = {mse:.6e}")
+    print(f"    MAE = {mae:.6e}")
+    print(f"    R²  = {r2:.6f}")
+    print()
+
+# Optional: summary table
+loss_df = pd.DataFrame(losses).T
+print(loss_df)
