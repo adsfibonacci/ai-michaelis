@@ -1,0 +1,4 @@
+#+setupfile: ~/.emacs.d/latex.org
+#+title: Symbolic Regression to Derive a Rheumatoid Arthritis Model
+
+* Background
